@@ -42,9 +42,12 @@ function createTodoItem(todo) {
   remove.textContent = '✕';
   remove.setAttribute('aria-label', 'Delete task');
   remove.addEventListener('click', () => {
-    todos = todos.filter(item => item.id !== todo.id);
-    saveTodos();
-    renderTodos();
+    li.classList.add('removing');
+    li.addEventListener('animationend', () => {
+      todos = todos.filter(item => item.id !== todo.id);
+      saveTodos();
+      renderTodos();
+    }, { once: true });
   });
 
   li.append(toggle, text, remove);
